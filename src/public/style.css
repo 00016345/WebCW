@@ -1,0 +1,52 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.fruit-container {
+    margin-top: 20px;
+}
+
+.fruit-container h2 {
+    margin-bottom: 10px;
+}
+
+.fruit-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.fruit-details {
+    margin-bottom: 5px;
+}
+
+.fruit-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-button,
+.delete-button {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.edit-button {
+    background-color: #f0ad4e;
+    color: #fff;
+    border: none;
+}
+
+.fruit-actions .delete-button {
+    background-color: #d9534f;
+    color: #fff;
+    border: none;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+    opacity: 0.8;
+}

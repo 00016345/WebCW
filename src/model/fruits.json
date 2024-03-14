@@ -3,5 +3,10 @@
         "id": 1,
         "fruit_name": "apelsin",
         "price": "5"
+    },
+    {
+        "id": 2,
+        "fruit_name": "banana",
+        "price": "Price 4"
     }
 ]
