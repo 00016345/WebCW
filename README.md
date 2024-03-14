@@ -8,7 +8,7 @@
 2. Enter to the project:   cd  //// name of project   todo-list-app
 3. Install dependencies:  npm install
 4. Start the server:   npm run start(:dev for dev mode)
-5. Open  web browser and go to http://localhost:7001.
+5. Open  web browser and go to http://localhost:3000.
 
 ## Application Dependencies:
 The application depends on the following components:
@@ -22,8 +22,8 @@ The application depends on the following components:
 # Install dependencies: npm install express ejs cors dotenv joi body-parser
 
 ## Links:
-- [Public Repo on GitHub](https://github.com/username/todo-list-app)
-- [Hosted Application](https://-app-name.glitch.me)
+- [Public Repo on GitHub](https://github.com/00016345/WebCW.git)
+
 
 
 ### Structure
