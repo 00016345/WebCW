@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="fruit-container">
+            <h2>Create a fruit</h2>
+
+            <form action="/wiut/fruit" method="post" enctype="application/x-www-form-urlencoded">
+                <input name="fruit_name" type="text" placeholder="Enter fruit name">
+                <input name="price" type="text" placeholder="Enter fruit price">
+                <button type="submit">Add fruit</button>
+            </form>
+            <div class="fruits">
+                <% allFruit.map(fruit => { %>
+                    <div class="fruit-item" data-fruit-id="<%= fruit.id %>">
+                        <div class="fruit-details">
+                            <p>Name: <%= fruit.fruit_name %></p>
+                        </div>
+                        <div class="fruit-details">
+                            <p>Price: <%= fruit.price %> $</p>
+                        </div>
+                        <div class="fruit-actions">
+                            <div>
+                                <button class="edit-button" data-fruit-id="<%= fruit.id %>">Edit</button>
+                                <button class="delete-button" data-fruit-id="<%= fruit.id %>">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteButtons = document.querySelectorAll('.delete-button');
+            
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const fruitId = this.getAttribute('data-fruit-id');
+                    fetch(`/wiut/fruit/${fruitId}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            const fruitItem = document.querySelector(`.fruit-item[data-fruit-id="${fruitId}"]`);
+                            fruitItem.remove();
+                        } else {
+                            console.error('Error deleting fruit item');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                });
+            });
+
+            const editButtons = document.querySelectorAll('.edit-button');
+
+            editButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const fruitId = this.getAttribute('data-fruit-id');
+                    const fruitItem = document.querySelector(`.fruit-item[data-fruit-id="${fruitId}"]`);
+                    const fruitName = fruitItem.querySelector('.fruit-details:nth-child(1) p');
+                    const fruitPrice = fruitItem.querySelector('.fruit-details:nth-child(2) p');
+
+                    const newName = prompt("Enter new name for the fruit:", fruitName.innerText);
+                    const newPrice = prompt("Enter new price for the fruit:", fruitPrice.innerText);
+
+                    if (newName && newPrice) {
+                        const newData = {
+                            fruit_name: newName,
+                            price: newPrice
+                        };
+                        fetch(`/wiut/fruit/${fruitId}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(newData)
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                fruitName.innerText = newName;
+                                fruitPrice.innerText = newPrice + ' $';
+                            } else {
+                                console.error('Error updating fruit item');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
